@@ -1,0 +1,10 @@
+# Modern PyTorch SAC + exploration-bonus study (SimHash / RND / ICM)
+# Target: Python 3.10, CUDA GPU optional (CPU works for the small/sparse envs).
+#
+# NOTE: install PyTorch matching your CUDA from https://pytorch.org first,
+# then `pip install -r requirements.txt` for the rest.
+torch>=2.2
+gymnasium[mujoco]>=1.0
+mujoco>=3.0
+numpy>=1.24
+matplotlib>=3.7
