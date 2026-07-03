@@ -30,7 +30,8 @@
 #SBATCH --mem=8G
 #SBATCH --output=hpc/logs/%x_%A_%a.out
 
-set -euo pipefail
+# NOTE: no -u here -- conda's activate scripts reference unset vars (PS1 etc.)
+set -eo pipefail
 
 MANIFEST=${1:?usage: sbatch --array=0-N%K hpc/train_array.sbatch <manifest.txt>}
 ARGS=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$MANIFEST")
@@ -41,9 +42,9 @@ fi
 
 # ---- environment: adjust module/env names to your cluster ------------------
 module purge
-module load anaconda3
-source activate sac          # conda env from hpc/README.md one-time setup
-# (venv alternative:  source ~/venvs/sac/bin/activate)
+module load python/3.13.5          
+source ~/venvs/sac/bin/activate
+echo "python: $(which python)"
 
 export PYTHONUNBUFFERED=1
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
