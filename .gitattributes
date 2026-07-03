@@ -1,0 +1,5 @@
+# Files that must reach the Linux cluster with LF endings, regardless of
+# Windows checkout settings (CRLF in a bash script breaks sbatch).
+hpc/** text eol=lf
+*.sbatch text eol=lf
+*.py text eol=lf
