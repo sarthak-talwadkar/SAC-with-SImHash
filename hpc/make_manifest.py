@@ -54,7 +54,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--phase", required=True,
-                   choices=["gate", "mountaincar", "sparse", "dense"])
+                   choices=["gate", "mountaincar", "beta", "sparse", "dense"])
     p.add_argument("--seeds", type=int, default=10, help="seeds 0..N-1 per arm")
     p.add_argument("--threshold", type=float, default=5.0,
                    help="sparse phase: forward-distance reward threshold")
@@ -74,6 +74,16 @@ def main() -> None:
             for s in seeds:
                 out.append(line("MountainCarContinuous-v0", bonus, variant,
                                 s, MC_SCHED))
+
+    elif args.phase == "beta":
+        # Bonus-scale sweep on MountainCar. affine at three betas tests whether
+        # scale is the remaining blocker once geometry is fixed; raw at a large
+        # beta is the control showing scale cannot substitute for geometry.
+        for variant, betas in [("affine", [0.2, 0.5, 1.0]), ("raw", [0.5])]:
+            for b in betas:
+                for s in seeds:
+                    out.append(line("MountainCarContinuous-v0", "simhash", variant,
+                                    s, MC_SCHED, f"--beta {b:g} --tag b{b:g}"))
 
     elif args.phase == "sparse":
         t = args.threshold
