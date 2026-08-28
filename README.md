@@ -31,8 +31,6 @@ Every visited state is hashed into a discrete binary code with SimHash, which ma
 
 ## Results
 
-_Add learning curves and final numbers here, for example: return or success rate on the choreography task with and without the SimHash bonus, and any ablations on hash dimension or bucket resolution._
-
 ## Installation
 
 ```bash
@@ -85,10 +83,6 @@ If you build on this work, please cite the preprint once it is posted:
   note    = {Preprint}
 }
 ```
-
-## License
-
-[MIT is a common default for research code; update if you would prefer something else]
 
 ## Author
 
